@@ -27,6 +27,7 @@ if __name__ == "__main__":
         print("4. Color Swapping")
         print("5. Increase the brightness")
         print("6. Pencil sketch image")
+        print("7. Transpose the image")
         filter_number = int(input())
 
         clear_screen()
@@ -65,8 +66,16 @@ if __name__ == "__main__":
             blur_img=cv2.GaussianBlur(inv_gray,(101,101),0)
             inv_blur=255-blur_img
             filtered_image= cv2.divide(gray,inv_blur,scale=255.0)
+        elif filter_number == 7:
+            # Convert to NumPy array
+            img_array = np.array(img)
+
+            # Transpose the array
+            transposed_array = np.transpose(img_array, axes=(1, 0, 2))
+
+            filtered_image = np.array(transposed_array, dtype=np.uint8)
         else:
-            print("Invalid filter choice. Please choose from 1-6.")
+            print("Invalid filter choice. Please choose from 1-7.")
             exit()
 
         # Output confirmation message
