@@ -2,6 +2,7 @@
 import cv2
 import os
 import numpy as np
+import matplotlib.pyplot as plt
 
 # function to clear the screen for any os
 def clear_screen():
@@ -38,7 +39,7 @@ if __name__ == "__main__":
         if filter_number == 1:
             filtered_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # applies grey scale
         elif filter_number == 2:
-            filtered_image = cv2.GaussianBlur(img, (5, 5), 0)# blurs the image
+            filtered_image = cv2.GaussianBlur(img,(101,101),0)# blurs the image
         elif filter_number == 3:
             filtered_image = cv2.Canny(img, 100, 200) # edge detection
         elif filter_number == 4:
@@ -57,11 +58,13 @@ if __name__ == "__main__":
                 result = [[[pixel + brightness_number for pixel in row] for row in inner_list] for inner_list in img] 
                 # Convert the array to a NumPy array 
                 filtered_image = np.array(result, dtype=np.uint8)
+                print("Processsing.....")
                 clear_screen()
             else:
                 result = [[[pixel * brightness_number for pixel in row] for row in inner_list] for inner_list in img] 
                 # Convert the array to a NumPy array 
                 filtered_image = np.array(result, dtype=np.uint8)
+                print("Processsing.....")
                 clear_screen()
         elif filter_number == 6:
             # coverts the image to a pencil sketch
@@ -88,6 +91,19 @@ if __name__ == "__main__":
 
         # Save the processed image
         cv2.imwrite('images/output_images/processed_image_'+str(image_number)+'.jpg', filtered_image)
+
+        plt.figure(figsize=(14,7))
+
+        plt.subplot(1,2,1)
+        plt.title('Actual image in Matplotlib')
+        plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+        plt.axis('off')
+
+        plt.subplot(1,2,2)
+        plt.title('Color converted image in Matplotlib')
+        plt.imshow(cv2.cvtColor(filtered_image, cv2.COLOR_BGR2RGB))
+        plt.axis('off')
+        plt.show()
 
     except ValueError:
         print("That's not an int!")# output if the user did not enter a number
