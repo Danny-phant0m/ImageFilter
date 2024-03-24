@@ -3,11 +3,13 @@ import cv2
 import os
 import numpy as np
 
+# function to clear the screen for any os
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
  
 if __name__ == "__main__":
     try:
+        # ask the user which image they would like to use 
         print("Choose a image to apply a filter to ")
         print("1. Image_1")
         print("2. Image_2")
@@ -15,9 +17,10 @@ if __name__ == "__main__":
         print("4. Image_4")
         image_number = int(input()) # gets the users input and makes sure that it is a number
 
-        clear_screen()
+        clear_screen()# clear the screen
+
         # Save image in set directory
-        img = cv2.imread('images/Image_'+str(image_number)+'.jpg')# loads the image to open cv
+        img = cv2.imread('images/Image_'+str(image_number)+'.jpg')
 
         # ask the user which option they want
         print("Choose a filter to apply to the image")
@@ -33,14 +36,14 @@ if __name__ == "__main__":
         clear_screen()
         # Apply the filter based on choice
         if filter_number == 1:
-            filtered_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            filtered_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # applies grey scale
         elif filter_number == 2:
-            filtered_image = cv2.GaussianBlur(img, (5, 5), 0)
+            filtered_image = cv2.GaussianBlur(img, (5, 5), 0)# blurs the image
         elif filter_number == 3:
-            filtered_image = cv2.Canny(img, 100, 200) 
+            filtered_image = cv2.Canny(img, 100, 200) # edge detection
         elif filter_number == 4:
             B, G, R = cv2.split(img)
-            filtered_image = cv2.merge((R, B, G))
+            filtered_image = cv2.merge((R, B, G))# color swap the image
         elif filter_number == 5:
             print("1. Scalar multiplication")
             print("2. Scalar addition")
@@ -61,6 +64,7 @@ if __name__ == "__main__":
                 filtered_image = np.array(result, dtype=np.uint8)
                 clear_screen()
         elif filter_number == 6:
+            # coverts the image to a pencil sketch
             gray= cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
             inv_gray= 255-gray
             blur_img=cv2.GaussianBlur(inv_gray,(101,101),0)
@@ -86,5 +90,5 @@ if __name__ == "__main__":
         cv2.imwrite('images/output_images/processed_image_'+str(image_number)+'.jpg', filtered_image)
 
     except ValueError:
-        print("That's not an int!")
+        print("That's not an int!")# output if the user did not enter a number
 
