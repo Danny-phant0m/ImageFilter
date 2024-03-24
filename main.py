@@ -34,6 +34,13 @@ if __name__ == "__main__":
             print("Invalid filter choice. Please choose from 1-4.")
             exit()
 
+        # Output confirmation message
+        print("\nThe chosen filter has been applied to the image.")
+        print("Your processed image is saved as 'processed_image_"+str(image_number)+".jpg'")
+
+        # Save the processed image
+        cv2.imwrite('processed_image_'+str(image_number)+'.jpg', filtered_image)
+
     except ValueError:
         print("That's not an int!")
 
