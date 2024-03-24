@@ -26,6 +26,7 @@ if __name__ == "__main__":
         print("3. Edge Detection (Canny)")
         print("4. Color Swapping")
         print("5. Increase the brightness")
+        print("6. Pencil sketch image")
         filter_number = int(input())
 
         clear_screen()
@@ -58,6 +59,12 @@ if __name__ == "__main__":
                 # Convert the array to a NumPy array 
                 filtered_image = np.array(result, dtype=np.uint8)
                 clear_screen()
+        elif filter_number == 6:
+            gray= cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+            inv_gray= 255-gray
+            blur_img=cv2.GaussianBlur(inv_gray,(101,101),0)
+            inv_blur=255-blur_img
+            filtered_image= cv2.divide(gray,inv_blur,scale=255.0)
         else:
             print("Invalid filter choice. Please choose from 1-6.")
             exit()
