@@ -18,7 +18,8 @@ if __name__ == "__main__":
         clear_screen()
         # Save image in set directory
         img = cv2.imread('images/Image_'+str(image_number)+'.jpg')# loads the image to open cv
-        print(img)
+
+        # ask the user which option they want
         print("Choose a filter to apply to the image")
         print("1. Grayscale")
         print("2. Blurring (Gaussian)")
@@ -39,13 +40,24 @@ if __name__ == "__main__":
             B, G, R = cv2.split(img)
             filtered_image = cv2.merge((R, B, G))
         elif filter_number == 5:
+            print("1. Scalar multiplication")
+            print("2. Scalar addition")
+            option = int(input())
+
             print("Enter a number to increase the brightness")
             brightness_number = int(input())
-            # loop through the image and add a scalar
-            result = [[[pixel + brightness_number for pixel in row] for row in inner_list] for inner_list in img] 
-            # Convert the array to a NumPy array 
-            filtered_image = np.array(result, dtype=np.uint8)
-            clear_screen()
+
+            if option == 2:
+                # loop through the image and add a scalar
+                result = [[[pixel + brightness_number for pixel in row] for row in inner_list] for inner_list in img] 
+                # Convert the array to a NumPy array 
+                filtered_image = np.array(result, dtype=np.uint8)
+                clear_screen()
+            else:
+                result = [[[pixel * brightness_number for pixel in row] for row in inner_list] for inner_list in img] 
+                # Convert the array to a NumPy array 
+                filtered_image = np.array(result, dtype=np.uint8)
+                clear_screen()
         else:
             print("Invalid filter choice. Please choose from 1-6.")
             exit()
